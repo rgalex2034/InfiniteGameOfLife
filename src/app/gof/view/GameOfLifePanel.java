@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JPanel;
@@ -88,8 +89,8 @@ public class GameOfLifePanel extends JPanel{
 
 		/**
 		 * We add a listener to get the distance when the mouse
-		 * is dragged and move the offset for moving the screen
-		 * and repaint the game.
+		 * is dragged and the mouse wheel moved to move the offset
+		 * for moving the screen, resize the cells and repaint the game.
 		 */
 		MouseDistanceListener mouseListener = new MouseDistanceListener() {
 
@@ -104,9 +105,17 @@ public class GameOfLifePanel extends JPanel{
 			@Override
 			public void mouseDistanceReleased(MouseEvent me) {
 			}
+
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent mwe) {
+				//System.out.println("Amount:" + mwe.getScrollAmount() + " - Type:" + mwe.getScrollType() + " more:" + mwe.getUnitsToScroll());
+				cellSize += mwe.getUnitsToScroll() > 0 ? -1 : 1;
+				repaint();
+			}
 		};
 		this.addMouseListener(mouseListener);
 		this.addMouseMotionListener(mouseListener);
+		this.addMouseWheelListener(mouseListener);
 
 		/**
 		 * We add an ActionListener to repaint the game of life
