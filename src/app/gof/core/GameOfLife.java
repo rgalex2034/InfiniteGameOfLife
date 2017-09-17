@@ -153,6 +153,11 @@ public class GameOfLife implements Runnable{
 		return list;
 	}
 
+	/**
+	 * Get the next Cell for the next cycle from a Point.
+	 * @param p - The point to check.
+	 * @return The next Cell that should have the next cycle.
+	 */
 	private Cell nextCellStatus(Point p){
 		Cell c = this.getSafeCell(p);
 		int livingCells = 0;
@@ -189,9 +194,9 @@ public class GameOfLife implements Runnable{
 				Thread.sleep(100);
 				if(!this.paused){
 					this.nextStep();
-				}
-				for (ActionListener listener : listeners) {
-					listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "next_step"));
+					for (ActionListener listener : listeners) {
+						listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "next_step"));
+					}
 				}
 			} catch (InterruptedException ex) {
 				Logger.getLogger(GameOfLife.class.getName()).log(Level.SEVERE, null, ex);
