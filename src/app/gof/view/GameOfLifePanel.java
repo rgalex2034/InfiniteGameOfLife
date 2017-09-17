@@ -108,8 +108,11 @@ public class GameOfLifePanel extends JPanel{
 
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent mwe) {
-				//System.out.println("Amount:" + mwe.getScrollAmount() + " - Type:" + mwe.getScrollType() + " more:" + mwe.getUnitsToScroll());
 				cellSize += mwe.getUnitsToScroll() > 0 ? -1 : 1;
+				if(cellSize < 2){
+					//Minimum size
+					cellSize = 2;
+				}
 				repaint();
 			}
 		};
