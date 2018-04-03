@@ -133,7 +133,9 @@ public class GameOfLife implements Runnable{
 				List<Point> neighbours = this.getAdjacentPoints(p);
 				for (Point neighbour : neighbours) {
 					nextCell = this.nextCellStatus(neighbour);
-					this.nextCellMap.put(neighbour, nextCell);
+					if(nextCell.isAlive()){
+						this.nextCellMap.put(neighbour, nextCell);
+					}
 				}
 			}
 		}
